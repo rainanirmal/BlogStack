@@ -9,6 +9,8 @@ full-stack blogging application built with **Node.js**, **Express**, and **Mongo
 - **Framework** — Express.js
 - **Database** — MongoDB
 - **ODM** — Mongoose
+- **Templating Engine** — EJS
+- **CSS Framework** — Bootstrap
 
 ## 🛠️ Status
 
