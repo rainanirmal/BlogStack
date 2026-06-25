@@ -1,0 +1,23 @@
+{
+  "name": "blogstack",
+  "version": "1.0.0",
+  "description": "Blogging app built with Node.js to explore backend concepts like routing, authentication, database integration, and REST APIs.",
+  "homepage": "https://github.com/rainanirmal/BlogStack#readme",
+  "bugs": {
+    "url": "https://github.com/rainanirmal/BlogStack/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rainanirmal/BlogStack.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
