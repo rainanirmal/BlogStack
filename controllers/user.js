@@ -8,16 +8,16 @@ function renderSignIn(request , response) {
     return response.render("signin");
 }
 
-function handleSignUp(request , response) {
+async function handleSignUp (request , response) {
     const { fullName , email , password} = request.body;
 
-    const user = User.create({
+    await User.create({
         fullName,
         email,
         password,
     });
 
-    return user;
+    return response.redirect("/");
 }
 
 module.exports = {

@@ -1,9 +1,9 @@
 const { renderSignUp , renderSignIn , handleSignUp } = require("../controllers/user");
 const { Router } = require("express");
 
-const router = express.Router();
+const router = Router();
 
-router.get("/signup" , renderSignIn);
+router.get("/signup" , renderSignUp);
 router.get("/signin" , renderSignIn);
 router.post("/signup" , handleSignUp);
 
