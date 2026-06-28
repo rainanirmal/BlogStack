@@ -29,7 +29,7 @@ const userSchema = new Schema({
     },
 } , { timestamps : true});
 
-userSchema.pre('save' , function (next) {
+userSchema.pre('save' , async function () {
 
     const user = this;
 
@@ -37,13 +37,12 @@ userSchema.pre('save' , function (next) {
         return;
     }
 
-    const salt = randomBytes(16).toString();
+    const salt = randomBytes(16).toString('hex');
     const hashedPassword = createHmac('sha256' , salt).update(user.password).digest('hex');
 
     this.salt = salt;
     this.password = hashedPassword;
 
-    next();
 })
 
 const User = model("user" , userSchema);
