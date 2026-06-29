@@ -23,11 +23,11 @@ async function handleSignUp (request , response) {
 async function handleSignIn(request , response) {
     const {email , password} = request.body;
 
-    const user = await User.matchPassword(email , password);
+    const token = await User.matchPasswordAndGenerateToken(email , password);
 
-    console.log("User : " , user);
+    // console.log("Token : " , token);
 
-    return response.redirect("/");
+    return response.cookie("token" , token).redirect("/");
 }
 
 module.exports = {
