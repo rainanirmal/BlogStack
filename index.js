@@ -1,12 +1,14 @@
+require("dotenv").config();
+
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const UserRouter = require("./routes/user");
 
-const PORT = 8000;
+const PORT = process.env.PORT;
 const app = express();
 
-mongoose.connect("mongodb://localhost:27017/blogStack").then(() => {console.log("MongoDB connected !")});
+mongoose.connect(process.env.MONGO_URL).then(() => {console.log("MongoDB connected !")});
 
 app.use(express.urlencoded({ extended : false}));
 
