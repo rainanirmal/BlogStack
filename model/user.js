@@ -43,7 +43,21 @@ userSchema.pre('save' , async function () {
     this.salt = salt;
     this.password = hashedPassword;
 
-})
+});
+
+userSchema.static('matchPassword' , function(request , response) {
+    const user = this.findOne({ email });
+    if(!user) throw new Error ("User not found !");
+
+    const salt = user.salt;
+    const HashedPassword = user.password;
+
+    const userProvidedHash = createHmac('sha256' , salt).update(user.password).digest('hex');
+
+    if(HashedPassword != userProvidedHash) throw new Error ("Incorrect password !");
+
+    return { ...user , password : undefined , salt : undefined};
+});
 
 const User = model("user" , userSchema);
 

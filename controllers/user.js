@@ -20,6 +20,16 @@ async function handleSignUp (request , response) {
     return response.redirect("/");
 }
 
+function handleSignIn(request , response) {
+    const {email , password} = request.body;
+
+    const user = User.matchPassword(email , password);
+
+    console.log("User : " , user);
+
+    return response.redirect("/");
+}
+
 module.exports = {
     renderSignUp , 
     renderSignIn , 
