@@ -20,10 +20,10 @@ async function handleSignUp (request , response) {
     return response.redirect("/");
 }
 
-function handleSignIn(request , response) {
+async function handleSignIn(request , response) {
     const {email , password} = request.body;
 
-    const user = User.matchPassword(email , password);
+    const user = await User.matchPassword(email , password);
 
     console.log("User : " , user);
 
@@ -34,4 +34,5 @@ module.exports = {
     renderSignUp , 
     renderSignIn , 
     handleSignUp,
+    handleSignIn,
 };

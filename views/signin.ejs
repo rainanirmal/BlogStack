@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>Sign In</title>
+
+    <style>
+      body {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        min-height: 100vh;
+      }
+
+      .signin-card {
+        max-width: 450px;
+        width: 100%;
+        border: none;
+        border-radius: 18px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      }
+
+      .signin-card h2 {
+        font-weight: bold;
+      }
+
+      .form-control {
+        height: 50px;
+        border-radius: 10px;
+      }
+
+      .btn-primary {
+        height: 50px;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+      }
+
+      .brand {
+        color: #0d6efd;
+        font-weight: bold;
+      }
+
+      .forgot-password a,
+      .signup-link a {
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .forgot-password a:hover,
+      .signup-link a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <%- include('./partials/nav') %>
+
+    <div class="container d-flex justify-content-center align-items-center py-5">
+
+      <div class="card signin-card">
+
+        <div class="card-body p-5">
+
+          <div class="text-center mb-4">
+            <h2>Welcome Back 👋</h2>
+            <p class="text-muted">
+              Sign in to continue to
+              <span class="brand">Blogify</span>
+            </p>
+          </div>
+
+          <form method="POST" action="/user/signin">
+
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label fw-semibold">
+                Email Address
+              </label>
+
+              <input
+                name="email"
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                placeholder="Enter your email"
+              />
+            </div>
+
+            <div class="mb-2">
+              <label for="exampleInputPassword1" class="form-label fw-semibold">
+                Password
+              </label>
+
+              <input
+              name="password"
+                type="password"
+                class="form-control"
+                id="exampleInputPassword1"
+                placeholder="Enter your password"
+              />
+            </div>
+
+            <div class="text-end mb-4 forgot-password">
+              <a href="#">Forgot Password?</a>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">
+                Sign In
+              </button>
+            </div>
+
+          </form>
+
+          <hr class="my-4">
+
+          <div class="text-center signup-link">
+            <small class="text-muted">
+              Don't have an account?
+              <a href="/user/signup" class="fw-bold">
+                Create Account
+              </a>
+            </small>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <%- include('./partials/script') %>
+
+  </body>
+</html>
