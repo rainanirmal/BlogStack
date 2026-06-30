@@ -1,7 +1,8 @@
-# BlogStack
-Blogging app built with Node.js to explore backend concepts like routing, authentication, database integration, and REST APIs.
+# Blogstack 📝
 
-full-stack blogging application built with **Node.js**, **Express**, and **MongoDB** — developed to deepen backend development skills and explore real-world web application architecture.
+A full-stack blogging application built with **Node.js**, **Express**, and **MongoDB** — developed to deepen backend development skills and explore real-world web application architecture.
+
+---
 
 ## 🚀 Tech Stack
 
@@ -11,7 +12,148 @@ full-stack blogging application built with **Node.js**, **Express**, and **Mongo
 - **ODM** — Mongoose
 - **Templating Engine** — EJS
 - **CSS Framework** — Bootstrap
+- **Authentication** — JWT (JSON Web Tokens) + Cookie Parser
+- **File Uploads** — Multer
+- **Environment Variables** — dotenv
 
-## 🛠️ Status
+---
 
-> 🔧 Currently under active development
+## 📁 Folder Structure
+
+```
+BlogStack/
+├── controllers/
+│   ├── blog.js         # Blog logic (add, view, comment)
+│   └── user.js         # User logic (signup, signin, logout)
+├── middlewares/
+│   ├── authentication.js  # JWT cookie verification middleware
+│   └── uploads.js         # Multer file upload config
+├── model/
+│   ├── blog.js         # Blog schema & model
+│   ├── comment.js      # Comment schema & model
+│   └── user.js         # User schema & model (with password hashing)
+├── public/
+│   ├── images/         # Static images (default avatar)
+│   └── uploads/        # User-uploaded blog cover images
+├── routes/
+│   ├── blog.js         # Blog routes
+│   └── user.js         # User routes
+├── services/
+│   └── authentication.js  # JWT sign & verify helpers
+├── views/
+│   ├── partials/
+│   │   ├── head.ejs    # HTML head (Bootstrap CDN)
+│   │   ├── nav.ejs     # Dynamic navbar
+│   │   └── script.ejs  # Script tags
+│   ├── addBlog.ejs     # Add new blog page
+│   ├── blog.ejs        # Single blog view with comments
+│   ├── home.ejs        # Home page listing all blogs
+│   ├── signin.ejs      # Sign in page
+│   └── signup.ejs      # Sign up page
+├── .env                # Environment variables (not committed)
+├── .gitignore
+├── index.js            # App entry point
+└── package.json
+```
+
+---
+
+## 🗄️ Database Schema
+
+### User
+| Field | Type | Description |
+|-------|------|-------------|
+| fullName | String | User's full name |
+| email | String | Unique email address |
+| salt | String | Random salt for password hashing |
+| password | String | HMAC SHA-256 hashed password |
+| profileImageURL | String | Profile picture (default provided) |
+| role | String | `USER` or `ADMIN` |
+| timestamps | Date | createdAt & updatedAt |
+
+### Blog
+| Field | Type | Description |
+|-------|------|-------------|
+| title | String | Blog title |
+| body | String | Blog content |
+| coverImageURL | String | Path to uploaded cover image |
+| createdBy | ObjectId | Reference to User model |
+| timestamps | Date | createdAt & updatedAt |
+
+### Comment
+| Field | Type | Description |
+|-------|------|-------------|
+| content | String | Comment text |
+| blogId | ObjectId | Reference to Blog model |
+| createdBy | ObjectId | Reference to User model |
+| timestamps | Date | createdAt & updatedAt |
+
+---
+
+## ✨ Features
+
+- User registration and login with password hashing (HMAC SHA-256 + salt)
+- JWT-based authentication stored in HTTP cookies
+- Create blog posts with a cover image upload
+- View all blogs on the home page (authenticated users only)
+- Individual blog pages with full content
+- Comment on blog posts
+- Logout functionality
+- Dynamic navbar based on auth state
+- Server-side rendering with EJS and Bootstrap UI
+
+---
+
+## ⚙️ Routes
+
+### User Routes (`/user`)
+| Method | Route | Description |
+|--------|-------|-------------|
+| GET | `/user/signup` | Render signup page |
+| POST | `/user/signup` | Handle user registration |
+| GET | `/user/signin` | Render signin page |
+| POST | `/user/signin` | Handle login & set JWT cookie |
+| GET | `/user/logout` | Clear cookie & redirect |
+
+### Blog Routes (`/blog`)
+| Method | Route | Description |
+|--------|-------|-------------|
+| GET | `/blog/addblog` | Render add blog page |
+| POST | `/blog/` | Create a new blog post (with image upload) |
+| GET | `/blog/:id` | View a single blog post with comments |
+| POST | `/blog/comment/:blogId` | Add a comment to a blog |
+
+---
+
+## 🛠️ Setup & Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/rainanirmal/BlogStack.git
+   cd BlogStack
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Create a `.env` file** in the root directory
+   ```env
+   PORT=8000
+   MONGO_URL=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret_key
+   ```
+
+4. **Run the application**
+   ```bash
+   npm start
+   ```
+
+5. Open your browser and visit `http://localhost:8000`
+
+---
+
+## 🔧 Status
+
+> 🚧 Deployment in progress — coming soon!
