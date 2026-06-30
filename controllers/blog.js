@@ -1,4 +1,5 @@
 const {} = require("../model/blog");
+const Blog = require("../model/blog");
 
 function renderAddBlog(request , response) {
 
@@ -7,9 +8,16 @@ function renderAddBlog(request , response) {
     });
 }
 
-function handleAddBlog(request , response) {
+async function handleAddBlog(request , response) {
 
-    console.log(request.body);
+    const { title , body } = request.body;
+
+    await Blog.create ({
+        title ,
+        body ,
+        coverImageURL : `/uploads/blog/${request.user._id}/${request.file.filename}`,
+        createdBy : request.user._id,
+    })
 
     return response.redirect("/");
 }
