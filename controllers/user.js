@@ -23,11 +23,16 @@ async function handleSignUp (request , response) {
 async function handleSignIn(request , response) {
     const {email , password} = request.body;
 
-    const token = await User.matchPasswordAndGenerateToken(email , password);
+    try {
+        const token = await User.matchPasswordAndGenerateToken(email , password);
 
-    // console.log("Token : " , token);
-
-    return response.cookie("token" , token).redirect("/");
+        return response.cookie("token" , token).redirect("/");
+        
+    } catch (error) {
+        return response.render("signin" , {
+            error : "Incorrect password or email",
+        });
+    }
 }
 
 module.exports = {
