@@ -1,5 +1,6 @@
 const {} = require("../model/blog");
 const Blog = require("../model/blog");
+const Comment = require("../model/comment");
 
 function renderAddBlog(request , response) {
 
@@ -30,8 +31,19 @@ async function handleBlogPage(request , response) {
     });
 }
 
+async function handleBlogComment(request , response) {
+    await Comment.create({
+        cotent : request.body.cotent,
+        blogId : request.params.blogId,
+        createdBy : request.user._id,
+    });
+
+    return response.redirect(`/blog/${request.params.blogId}`);
+}
+
 module.exports = {
     renderAddBlog,
     handleAddBlog,
     handleBlogPage,
+    handleBlogComment,
 }
