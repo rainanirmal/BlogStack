@@ -1,4 +1,3 @@
-const {} = require("../model/blog");
 const Blog = require("../model/blog");
 const Comment = require("../model/comment");
 
@@ -25,15 +24,17 @@ async function handleAddBlog(request , response) {
 
 async function handleBlogPage(request , response) {
     const blog = await Blog.findById(request.params.id).populate("createdBy");
+    const comments = await Comment.find({ blogId : request.params.id }).populate("createdBy");
     return response.render("blog" , {
         user: request.user,
         blog,
+        comments,
     });
 }
 
 async function handleBlogComment(request , response) {
     await Comment.create({
-        cotent : request.body.cotent,
+        content : request.body.content,
         blogId : request.params.blogId,
         createdBy : request.user._id,
     });
