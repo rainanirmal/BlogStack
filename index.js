@@ -25,11 +25,15 @@ app.set("views", path.resolve("./views"));
 
 app.get("/", async (request, response) => {
 
-  const allBlogs = await Blog.find({}).sort({ createdAt: -1 });
+  let blog = [];
 
-  return response.render("home" , {
+  if (request.user) {
+    blog = await Blog.find({}).populate("createdBy");
+  }
+
+  return response.render("home", {
     user: request.user,
-    blog : allBlogs,
+    blog,
   });
 });
 

@@ -22,7 +22,16 @@ async function handleAddBlog(request , response) {
     return response.redirect("/");
 }
 
+async function handleBlogPage(request , response) {
+    const blog = await Blog.findById(request.params.id).populate("createdBy");
+    return response.render("blog" , {
+        user: request.user,
+        blog,
+    });
+}
+
 module.exports = {
     renderAddBlog,
     handleAddBlog,
+    handleBlogPage,
 }
