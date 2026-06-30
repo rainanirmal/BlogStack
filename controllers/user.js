@@ -35,9 +35,14 @@ async function handleSignIn(request , response) {
     }
 }
 
+function handleLogout(request , response) {
+    return response.clearCookie("token").redirect("/");
+}
+
 module.exports = {
     renderSignUp , 
     renderSignIn , 
     handleSignUp,
     handleSignIn,
+    handleLogout,
 };
