@@ -8,6 +8,8 @@ const BlogRouter = require("./routes/blog");
 const cookieParser = require("cookie-parser");
 const { checkForAuthenticatonCookie } = require("./middlewares/authentication");
 
+const Blog = require("./model/blog");
+
 const PORT = process.env.PORT;
 const app = express();
 
@@ -16,13 +18,18 @@ mongoose.connect(process.env.MONGO_URL).then(() => {console.log("MongoDB connect
 app.use(express.urlencoded({ extended : false}));
 app.use(cookieParser());
 app.use(checkForAuthenticatonCookie("token"));
+app.use(express.static("public"));
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
-app.get("/", (request, response) => {
+app.get("/", async (request, response) => {
+
+  const allBlogs = await Blog.find({}).sort({ createdAt: -1 });
+
   return response.render("home" , {
     user: request.user,
+    blog : allBlogs,
   });
 });
 
