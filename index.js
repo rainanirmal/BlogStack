@@ -4,6 +4,7 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const UserRouter = require("./routes/user");
+const BlogRouter = require("./routes/blog");
 const cookieParser = require("cookie-parser");
 const { checkForAuthenticatonCookie } = require("./middlewares/authentication");
 
@@ -26,6 +27,7 @@ app.get("/", (request, response) => {
 });
 
 app.use("/user" , UserRouter);
+app.use("/blog" , BlogRouter);
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
