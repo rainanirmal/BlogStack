@@ -15,7 +15,7 @@ async function handleAddBlog(request , response) {
     await Blog.create ({
         title ,
         body ,
-        coverImageURL : `/uploads/blog/${request.user._id}/${request.file.filename}`,
+        coverImageURL : request.file.path,
         createdBy : request.user._id,
     })
 
