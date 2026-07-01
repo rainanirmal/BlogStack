@@ -10,7 +10,7 @@ const { checkForAuthenticatonCookie } = require("./middlewares/authentication");
 
 const Blog = require("./model/blog");
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8000;
 const app = express();
 
 mongoose.connect(process.env.MONGO_URL).then(() => {console.log("MongoDB connected !")});
