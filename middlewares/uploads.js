@@ -1,29 +1,18 @@
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../services/cloudinary");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-
-    const uploadPath = path.resolve(
-      `./public/uploads/blog/${req.user._id}`
-    );
-
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath, { recursive: true });
-    }
-
-    cb(null, uploadPath);
-  },
-
-  filename: function (req, file, cb) {
-
-    const fileName = `${Date.now()}-${file.originalname}`;
-
-    cb(null, fileName);
-  },
+const storage = new CloudinaryStorage({
+    cloudinary,
+    params: async (req, file) => ({
+        folder: `BlogStack/${req.user._id}`,
+        allowed_formats: ["jpg", "jpeg", "png", "webp"],
+        public_id: `${Date.now()}-${file.originalname.split(".")[0]}`,
+    }),
 });
 
-const upload = multer({ storage });
+const upload = multer({
+    storage,
+});
 
 module.exports = upload;
